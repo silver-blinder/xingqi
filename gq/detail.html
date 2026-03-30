@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xingqi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page-wrap gq-detail" id="detail"></div>
+  <script src="/nav.js"></script>
+  <script>
+    // 从 URL 获取歌曲 id: /gq/xxx.html → xxx
+    const id = new URLSearchParams(location.search).get('id');
+
+    fetch('/data/songs.json')
+      .then(r => r.json())
+      .then(songs => {
+        const song = songs.find(s => s.id === id);
+        const el = document.getElementById('detail');
+        if (!song) { el.innerHTML = '<div class="empty">未找到该歌曲</div>'; return; }
+        document.title = song.title + ' · xingqi';
+        el.innerHTML = `
+          <h1>${song.title}</h1>
+          ${song.cover ? `<div class="cover"><img src="${song.cover}" alt=""></div>` : ''}
+          ${song.desc ? `<div class="desc">${song.desc}</div>` : ''}
+          ${song.audio ? `<audio controls><source src="${song.audio}" type="audio/mpeg"></audio>` : ''}
+          ${song.video ? `<video controls><source src="${song.video}"></video>` : ''}
+        `;
+      });
+  </script>
+</body>
+</html>

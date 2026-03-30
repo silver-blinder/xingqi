@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xingqi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page-wrap gq-list">
+    <h1 class="gq-page-title">歌 曲</h1>
+    <div id="list"></div>
+  </div>
+
+  <script src="/nav.js"></script>
+  <script>
+    fetch('/data/songs.json')
+      .then(r => r.json())
+      .then(songs => {
+        const list = document.getElementById('list');
+        list.innerHTML = songs.map(s => `
+          <div class="gq-item">
+            <div class="gq-item-title">${s.title}</div>
+            <a href="/gq/${s.id}.html">
+              ${s.cover ? `<img src="${s.cover}" alt="${s.title}">` : `<div style="padding:40px;border:1px solid #eee;">${s.title}</div>`}
+            </a>
+          </div>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('list').innerHTML = '<div class="empty">暂无歌曲</div>';
+      });
+  </script>
+</body>
+</html>

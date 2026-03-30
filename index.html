@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xingqi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="home-wrap">
+    <h1 class="home-title">xingqi</h1>
+    <div class="home-img">
+      <img id="home-pic" src="" alt="" style="cursor:pointer;">
+    </div>
+  </div>
+  <script src="/nav.js"></script>
+  <script>
+    fetch('/data/images.json')
+      .then(r => r.json())
+      .then(images => {
+        if (!images.length) return;
+        let idx = Math.floor(Math.random() * images.length);
+        const img = document.getElementById('home-pic');
+        img.src = '/img/' + images[idx];
+        img.addEventListener('click', () => {
+          idx = (idx + 1) % images.length;
+          img.src = '/img/' + images[idx];
+        });
+      });
+  </script>
+</body>
+</html>

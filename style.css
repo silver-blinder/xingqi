@@ -1,0 +1,340 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #fff;
+  --text: #222;
+  --text-light: #999;
+  --nav-bg: #222;
+  --nav-text: #fff;
+  --font-main: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Hiragino Sans GB', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ======== 顶部导航 ======== */
+.topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--nav-bg);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 36px;
+}
+
+.topnav .logo {
+  color: var(--nav-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+.topnav .menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.topnav-menu {
+  display: none;
+  position: fixed;
+  top: 50px; left: 0; right: 0;
+  background: var(--nav-bg);
+  z-index: 199;
+}
+
+.topnav-menu.open { display: block; }
+
+.topnav-menu a {
+  display: block;
+  color: var(--nav-text);
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  border-top: 1px solid #333;
+  letter-spacing: 2px;
+}
+
+.topnav-menu a:hover { background: #333; }
+
+/* ======== 页面内容通用 ======== */
+body { padding-top: 50px; }
+
+.page-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* ======== 首页 ======== */
+.home-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+  text-align: center;
+}
+
+.home-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+}
+
+.home-img {
+  margin: 0 auto 16px;
+  max-width: 100%;
+}
+
+.home-img img {
+  margin: 0 auto;
+}
+
+.home-caption {
+  font-size: 1rem;
+  margin-bottom: 60px;
+  color: var(--text);
+}
+
+/* ======== 歌曲列表页 ======== */
+.gq-list {
+  text-align: center;
+}
+
+.gq-page-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+}
+
+.gq-item {
+  margin-bottom: 40px;
+}
+
+.gq-item-title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.gq-item a {
+  display: inline-block;
+}
+
+.gq-item img {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 歌曲详情页 */
+.gq-detail {
+  text-align: center;
+}
+
+.gq-detail h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+.gq-detail .cover {
+  max-width: 400px;
+  margin: 0 auto 24px;
+}
+
+.gq-detail .cover img {
+  width: 100%;
+}
+
+.gq-detail .desc {
+  font-size: 0.95rem;
+  line-height: 2;
+  margin-bottom: 24px;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.gq-detail audio,
+.gq-detail video {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* ======== 诗歌棋盘页 ======== */
+.sg-page-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.sg-note {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin-bottom: 32px;
+}
+
+.sg-board-wrap {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.sg-board {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.sg-board td {
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.2rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.sg-o {
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.sg-o:hover {
+  opacity: 0.6;
+}
+
+.sg-x {
+  color: #ccc;
+  cursor: default;
+}
+
+/* 诗歌详情页 */
+.sg-detail {
+  text-align: center;
+}
+
+.sg-detail h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+}
+
+.sg-detail .poem-body {
+  font-size: 1rem;
+  line-height: 2.4;
+  white-space: pre-line;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sg-detail .poem-date {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+/* ======== 想法页 ======== */
+.xf-page-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.xf-list {
+  text-align: center;
+}
+
+.xf-title-link {
+  display: block;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: 2px;
+  transition: opacity 0.2s;
+}
+
+.xf-title-link:hover {
+  opacity: 0.5;
+}
+
+/* 想法详情页 */
+.xf-detail {
+  text-align: left;
+}
+
+.xf-detail h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.xf-detail .xf-body {
+  font-size: 0.95rem;
+  line-height: 2.2;
+  white-space: pre-line;
+}
+
+/* ======== 空状态 ======== */
+.empty {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  padding: 60px 0;
+}
+
+
+/* ======== 响应式 ======== */
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .topnav .menu-btn { display: block; margin-left: auto; }
+  .home-title { font-size: 1.3rem; }
+  .sg-board td { width: 38px; height: 38px; font-size: 1.05rem; }
+  .gq-item img { max-width: 280px; }
+}
