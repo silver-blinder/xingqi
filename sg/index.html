@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xingqi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <h1 class="sg-page-title">诗 歌</h1>
+    <div id="board" class="sg-board-wrap"></div>
+  </div>
+  <script src="/nav.js"></script>
+  <script>
+    fetch('/data/poems.json')
+      .then(r => r.json())
+      .then(poems => {
+        const el = document.getElementById('board');
+
+        // 棋盘配置 7×7
+        const cols = 7;
+        const rows = 7;
+        const totalCells = rows * cols;
+
+        const grid = [];
+        for (let i = 0; i < totalCells; i++) grid.push(null);
+
+        poems.forEach(p => {
+          if (p.row !== undefined && p.col !== undefined) {
+            const idx = p.row * cols + p.col;
+            if (idx < totalCells) grid[idx] = p;
+          }
+        });
+
+        const table = document.createElement('table');
+        table.className = 'sg-board';
+        for (let r = 0; r < rows; r++) {
+          const tr = document.createElement('tr');
+          for (let c = 0; c < cols; c++) {
+            const td = document.createElement('td');
+            const poem = grid[r * cols + c];
+            if (poem) {
+              td.className = 'sg-o';
+              td.textContent = 'O';
+              td.title = poem.title;
+              td.addEventListener('click', () => {
+                location.href = '/sg/' + poem.id + '.html';
+              });
+            } else {
+              td.className = 'sg-x';
+              td.textContent = 'X';
+            }
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+        el.appendChild(table);
+      })
+      .catch(() => {
+        document.getElementById('board').innerHTML = '<div class="empty">暂无诗歌</div>';
+      });
+  </script>
+</body>
+</html>

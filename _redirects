@@ -1,0 +1,5 @@
+# Netlify / Cloudflare Pages redirects
+# 歌曲详情页：/gq/xxx.html → /gq/detail.html
+/gq/*.html /gq/detail.html 200
+# 诗歌详情页：/sg/xxx.html → /sg/detail.html
+/sg/*.html /sg/detail.html 200
