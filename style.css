@@ -5,11 +5,12 @@
 }
 
 :root {
-  --bg: #fff;
-  --text: #222;
-  --text-light: #999;
-  --nav-bg: #222;
-  --nav-text: #fff;
+  --bg: linear-gradient(180deg, #e8ddf0 0%, #f5f0fa 40%, #fff 100%);
+  --bg-color: #f5f0fa;
+  --text: #3e2723;
+  --text-light: #8d6e94;
+  --nav-bg: #c8b4d8;
+  --nav-text: #3e2723;
   --font-main: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Hiragino Sans GB', sans-serif;
 }
 
@@ -18,6 +19,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-main);
   background: var(--bg);
+  background-color: var(--bg-color);
   color: var(--text);
   line-height: 1.8;
   min-height: 100vh;
@@ -87,11 +89,11 @@ img { max-width: 100%; display: block; }
   color: var(--nav-text);
   padding: 14px 24px;
   font-size: 0.95rem;
-  border-top: 1px solid #333;
+  border-top: 1px solid #b39dbd;
   letter-spacing: 2px;
 }
 
-.topnav-menu a:hover { background: #333; }
+.topnav-menu a:hover { background: #b39dbd; }
 
 /* ======== 页面内容通用 ======== */
 body { padding-top: 50px; }
@@ -200,6 +202,34 @@ body { padding-top: 50px; }
   margin-bottom: 16px;
 }
 
+.gq-detail .lyrics {
+  font-size: 0.95rem;
+  line-height: 2;
+  margin-bottom: 24px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.gq-detail .lyrics-title,
+.gq-detail .manuscripts-title {
+  font-size: 1.1rem;
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.gq-detail .manuscripts {
+  margin-bottom: 24px;
+}
+
+.gq-detail .manuscripts img {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto 12px;
+}
+
 /* ======== 诗歌棋盘页 ======== */
 .sg-page-title {
   font-size: 1.8rem;
@@ -247,7 +277,7 @@ body { padding-top: 50px; }
 }
 
 .sg-x {
-  color: #ccc;
+  color: #d4c4de;
   cursor: default;
 }
 

@@ -27,6 +27,8 @@ poems.forEach(poem => {
 // 歌曲页面生成
 const songs = JSON.parse(fs.readFileSync('data/songs.json', 'utf-8'));
 songs.forEach(song => {
+  const videos = song.videos || (song.video ? [song.video] : []);
+  const manuscripts = song.manuscripts || [];
   const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -39,9 +41,11 @@ songs.forEach(song => {
   <div class="page-wrap gq-detail">
     <h1>${song.title}</h1>
     ${song.cover ? `<div class="cover"><img src="${song.cover}" alt=""></div>` : ''}
-    ${song.desc ? `<div class="desc">${song.desc}</div>` : ''}
+    ${videos.map(v => `<video controls><source src="${v}"></video>`).join('\n    ')}
     ${song.audio ? `<audio controls><source src="${song.audio}" type="audio/mpeg"></audio>` : ''}
-    ${song.video ? `<video controls><source src="${song.video}"></video>` : ''}
+    ${song.desc ? `<div class="desc">${song.desc}</div>` : ''}
+    ${song.lyrics ? `<div class="lyrics"><div class="lyrics-title">歌词</div>${song.lyrics}</div>` : ''}
+    ${manuscripts.length ? `<div class="manuscripts"><div class="manuscripts-title">手稿</div>${manuscripts.map(m => `<img src="${m}" alt="">`).join('\n      ')}</div>` : ''}
   </div>
   <script src="/nav.js"><\/script>
 </body>
@@ -73,12 +77,7 @@ thoughts.forEach(t => {
   console.log('generated xf/' + t.id + '.html');
 });
 
-// 首页图片列表生成
-const imgDir = 'img';
-if (fs.existsSync(imgDir)) {
-  const images = fs.readdirSync(imgDir).filter(f => /\.(jpg|jpeg|png|gif|webp)$/i.test(f));
-  fs.writeFileSync('data/images.json', JSON.stringify(images, null, 2));
-  console.log('generated data/images.json (' + images.length + ' images)');
-}
+// 首页图片：data/images.json 现在手动维护，不再自动生成
+// 图片放在 img/homepage/ 目录下
 
 console.log('done');
