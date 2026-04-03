@@ -22,6 +22,9 @@
         const img = document.getElementById('home-pic');
         const desc = document.getElementById('home-desc');
         let queue = [];
+        let switching = false;
+        let nextPreloaded = null;
+
         function shuffle(arr) {
           const a = arr.slice();
           for (let i = a.length - 1; i > 0; i--) {
@@ -30,15 +33,61 @@
           }
           return a;
         }
+
+        function getNext() {
+          if (!queue.length) queue = shuffle(images.slice(1));
+          return queue.pop();
+        }
+
+        function preloadNext() {
+          const item = getNext();
+          const loader = new Image();
+          loader.src = '/img/homepage/' + item.file;
+          nextPreloaded = { item, loader };
+        }
+
         function show(item) {
           img.src = '/img/homepage/' + item.file;
           desc.textContent = item.desc || '';
+          img.style.opacity = '1';
+          desc.style.opacity = '1';
         }
-        show(images[0]);
+
+        // 初始加载：等图片就绪再显示
+        const first = images[0];
+        img.style.opacity = '0';
+        desc.style.opacity = '0';
+        img.onload = function() {
+          img.style.opacity = '1';
+          desc.style.opacity = '1';
+          preloadNext();
+        };
+        img.src = '/img/homepage/' + first.file;
+        desc.textContent = first.desc || '';
+
         document.addEventListener('click', (e) => {
           if (e.target.closest('.topnav, .topnav-menu')) return;
-          if (!queue.length) queue = shuffle(images.slice(1));
-          show(queue.pop());
+          if (switching) return;
+          if (!nextPreloaded) return;
+
+          const { item, loader } = nextPreloaded;
+          nextPreloaded = null;
+
+          if (loader.complete) {
+            // 图片已预加载完成，立即切换
+            show(item);
+            preloadNext();
+          } else {
+            // 图片还在加载，先隐藏，等加载完同时显示
+            switching = true;
+            img.style.opacity = '0';
+            desc.style.opacity = '0';
+            loader.onload = function() {
+              show(item);
+              switching = false;
+              preloadNext();
+            };
+          }
         });
       });
   </script>

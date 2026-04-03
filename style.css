@@ -126,6 +126,11 @@ body { padding-top: 50px; }
 
 .home-img img {
   margin: 0 auto;
+  transition: opacity 0.25s;
+}
+
+.home-title {
+  transition: opacity 0.25s;
 }
 
 .home-caption {
